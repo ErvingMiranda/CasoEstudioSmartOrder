@@ -20,11 +20,15 @@ public class ItemPedido {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
+
+    public double getSubtotal() {
+        return producto.getPrecio() * cantidad;
+    }
+
     @Override
     public String toString() {
         return "ItemPedido{" +
-                "producto=" + producto +
+                "nombre del producto=" + producto.getNombre() +
                 ", cantidad=" + cantidad +
                 '}';
     }

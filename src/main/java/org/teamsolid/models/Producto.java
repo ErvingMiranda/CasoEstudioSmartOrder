@@ -3,10 +3,10 @@ package org.teamsolid.models;
 public class Producto {
     private int id;
     private String nombre;
-    private float precio;
+    private double precio;
     private boolean disponible;
 
-    public Producto(int id, String nombre, float precio, boolean disponible) {
+    public Producto(int id, String nombre, double precio, boolean disponible) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -25,11 +25,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

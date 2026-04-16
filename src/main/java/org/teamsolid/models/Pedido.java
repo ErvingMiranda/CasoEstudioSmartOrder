@@ -1,16 +1,19 @@
 package org.teamsolid.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pedido {
     private int id;
     private Cliente cliente;
-    private ItemPedido item;
     private boolean pagado;
+    private List<ItemPedido> items;
 
-    public Pedido(int id, Cliente cliente, ItemPedido item, boolean pagado) {
+    public Pedido(int id, Cliente cliente, boolean pagado) {
         this.id = id;
         this.cliente = cliente;
-        this.item = item;
         this.pagado = pagado;
+        this.items = new ArrayList<>();
     }
 
     public int getId() {
@@ -21,16 +24,12 @@ public class Pedido {
         return cliente;
     }
 
-    public ItemPedido getItem() {
-        return item;
-    }
-
     public boolean isPagado() {
         return pagado;
     }
 
-    public double getTotal() {
-        return item.stream().mapToDouble(ItemPedido::getSubtotal).sum();
+    public void agregarItem(ItemPedido item) {
+        items.add(item);
     }
 
     @Override
@@ -38,8 +37,8 @@ public class Pedido {
         return "Pedido{" +
                 "id=" + id +
                 ", cliente=" + cliente +
-                ", item=" + item +
                 ", pagado=" + pagado +
+                ", items=" + items +
                 '}';
     }
 }

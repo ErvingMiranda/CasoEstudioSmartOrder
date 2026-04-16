@@ -3,10 +3,10 @@ package org.teamsolid.models;
 public class Cliente {
     private int  id;
     private String nombre;
-    private int telefono;
+    private String telefono;
     private String direccion;
 
-    public Cliente(int id, String nombre, int telefono, String direccion) {
+    public Cliente(int id, String nombre, String telefono, String direccion) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -25,11 +25,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
