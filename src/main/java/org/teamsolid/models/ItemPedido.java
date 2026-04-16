@@ -5,6 +5,10 @@ public class ItemPedido {
     private int cantidad;
 
     public ItemPedido(Producto producto, int cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
+        }
+
         this.producto = producto;
         this.cantidad = cantidad;
     }
@@ -18,6 +22,9 @@ public class ItemPedido {
     }
 
     public void setCantidad(int cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
+        }
         this.cantidad = cantidad;
     }
 
@@ -28,10 +35,9 @@ public class ItemPedido {
     @Override
     public String toString() {
         return "ItemPedido{" +
-                "nombre del producto=" + producto.getNombre() +
+                "producto='" + producto.getNombre() + '\'' +
                 ", cantidad=" + cantidad +
+                ", subtotal=" + getSubtotal() +
                 '}';
     }
 }
-
-

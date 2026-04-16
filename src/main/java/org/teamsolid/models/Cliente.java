@@ -1,7 +1,7 @@
 package org.teamsolid.models;
 
 public class Cliente {
-    private int  id;
+    private int id;
     private String nombre;
     private String telefono;
     private String direccion;
@@ -46,7 +46,7 @@ public class Cliente {
         return "Cliente{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", telefono=" + telefono +
+                ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
                 '}';
     }

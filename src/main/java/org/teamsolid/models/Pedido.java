@@ -27,12 +27,17 @@ public class Pedido {
     public boolean isPagado() {
         return pagado;
     }
-    public void marcarComoPagado() {
-        this.pagado = true;
+
+    public List<ItemPedido> getItems() {
+        return new ArrayList<>(items);
     }
-    
+
     public void agregarItem(ItemPedido item) {
         items.add(item);
+    }
+
+    public void eliminarItem(int idProducto) {
+        items.removeIf(item -> item.getProducto().getId() == idProducto);
     }
 
     public double getTotal() {
@@ -43,17 +48,18 @@ public class Pedido {
         return total;
     }
 
-    public List<ItemPedido> getItems() {
-        return items;
+    public void marcarComoPagado() {
+        this.pagado = true;
     }
 
     @Override
     public String toString() {
         return "Pedido{" +
                 "id=" + id +
-                ", cliente=" + cliente +
+                ", cliente=" + cliente.getNombre() +
                 ", pagado=" + pagado +
                 ", items=" + items +
+                ", total=" + getTotal() +
                 '}';
     }
 }
