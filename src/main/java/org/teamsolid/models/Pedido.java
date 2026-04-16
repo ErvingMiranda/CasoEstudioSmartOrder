@@ -27,9 +27,24 @@ public class Pedido {
     public boolean isPagado() {
         return pagado;
     }
-
+    public void marcarComoPagado() {
+        this.pagado = true;
+    }
+    
     public void agregarItem(ItemPedido item) {
         items.add(item);
+    }
+
+    public double getTotal() {
+        double total = 0;
+        for (ItemPedido item : items) {
+            total += item.getSubtotal();
+        }
+        return total;
+    }
+
+    public List<ItemPedido> getItems() {
+        return items;
     }
 
     @Override
