@@ -20,7 +20,7 @@ public class ServicioClientes {
         return repositorioClientes.obtenerTodos();
     }
 
-    public Cliente buscarCliente(int id) {
+    public Cliente buscarCliente(String id) {
         return repositorioClientes.buscarPorId(id);
     }
 }

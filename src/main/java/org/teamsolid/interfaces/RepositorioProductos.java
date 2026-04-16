@@ -6,5 +6,5 @@ import java.util.List;
 public interface RepositorioProductos {
     void guardar(Producto producto);
     List<Producto> obtenerTodos();
-    Producto buscarPorId(int id);
+    Producto buscarPorId(String id);
 }

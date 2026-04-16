@@ -20,9 +20,9 @@ public class RepositorioClientesMemoria implements RepositorioClientes {
     }
 
     @Override
-    public Cliente buscarPorId(int id) {
+    public Cliente buscarPorId(String id) {
         for (Cliente cliente : clientes) {
-            if (cliente.getId() == id) {
+            if (cliente.getId().equals(id)) {
                 return cliente;
             }
         }

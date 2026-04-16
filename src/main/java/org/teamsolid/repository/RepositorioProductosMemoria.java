@@ -20,9 +20,9 @@ public class RepositorioProductosMemoria implements RepositorioProductos {
     }
 
     @Override
-    public Producto buscarPorId(int id) {
+    public Producto buscarPorId(String id) {
         for (Producto producto : productos) {
-            if (producto.getId() == id) {
+            if (producto.getId().equals(id)) {
                 return producto;
             }
         }

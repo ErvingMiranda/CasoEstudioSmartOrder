@@ -20,9 +20,9 @@ public class RepositorioPedidosMemoria implements RepositorioPedidos {
     }
 
     @Override
-    public Pedido buscarPorId(int id) {
+    public Pedido buscarPorId(String id) {
         for (Pedido pedido : pedidos) {
-            if (pedido.getId() == id) {
+            if (pedido.getId().equals(id)) {
                 return pedido;
             }
         }

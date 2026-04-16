@@ -1,23 +1,25 @@
 package org.teamsolid.models;
 
+import org.teamsolid.utils.GeneradorId;
+
 public class Producto {
-    private int id;
+    private String id;
     private String nombre;
     private double precio;
     private boolean disponible;
 
-    public Producto(int id, String nombre, double precio, boolean disponible) {
+    public Producto(String nombre, double precio, boolean disponible) {
         if (precio < 0) {
             throw new IllegalArgumentException("El precio no puede ser negativo.");
         }
 
-        this.id = id;
+        this.id = GeneradorId.generar();
         this.nombre = nombre;
         this.precio = precio;
         this.disponible = disponible;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -51,7 +53,7 @@ public class Producto {
     @Override
     public String toString() {
         return "Producto{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", precio=" + precio +
                 ", disponible=" + disponible +

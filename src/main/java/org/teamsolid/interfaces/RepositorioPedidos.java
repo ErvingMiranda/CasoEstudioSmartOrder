@@ -6,5 +6,5 @@ import java.util.List;
 public interface RepositorioPedidos {
     void guardar(Pedido pedido);
     List<Pedido> obtenerTodos();
-    Pedido buscarPorId(int id);
+    Pedido buscarPorId(String id);
 }

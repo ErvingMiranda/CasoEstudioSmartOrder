@@ -6,5 +6,5 @@ import java.util.List;
 public interface RepositorioClientes {
     void guardar(Cliente cliente);
     List<Cliente> obtenerTodos();
-    Cliente buscarPorId(int id);
+    Cliente buscarPorId(String id);
 }

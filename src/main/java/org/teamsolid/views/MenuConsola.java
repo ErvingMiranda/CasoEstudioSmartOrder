@@ -13,12 +13,15 @@ import org.teamsolid.services.ServicioProductos;
 import java.util.Scanner;
 
 public class MenuConsola {
+
     private final ServicioClientes servicioClientes;
     private final ServicioProductos servicioProductos;
     private final ServicioPedidos servicioPedidos;
     private final Scanner scanner;
 
-    public MenuConsola(ServicioClientes servicioClientes, ServicioProductos servicioProductos, ServicioPedidos servicioPedidos) {
+    public MenuConsola(ServicioClientes servicioClientes,
+                       ServicioProductos servicioProductos,
+                       ServicioPedidos servicioPedidos) {
         this.servicioClientes = servicioClientes;
         this.servicioProductos = servicioProductos;
         this.servicioPedidos = servicioPedidos;
@@ -27,6 +30,7 @@ public class MenuConsola {
 
     public void iniciar() {
         int opcion;
+
         do {
             mostrarMenu();
             opcion = leerEntero("Seleccione una opción: ");
@@ -60,49 +64,68 @@ public class MenuConsola {
     }
 
     private void registrarCliente() {
-        int id = leerEntero("ID del cliente: ");
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
+
         System.out.print("Teléfono: ");
         String telefono = scanner.nextLine();
+
         System.out.print("Dirección: ");
         String direccion = scanner.nextLine();
 
-        Cliente cliente = new Cliente(id, nombre, telefono, direccion);
+        Cliente cliente = new Cliente(nombre, telefono, direccion);
         servicioClientes.registrarCliente(cliente);
 
         System.out.println("Cliente registrado correctamente.");
+        System.out.println("ID generado: " + cliente.getId());
     }
 
     private void registrarProducto() {
-        int id = leerEntero("ID del producto: ");
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
+
         double precio = leerDouble("Precio: ");
+
         System.out.print("¿Está disponible? (true/false): ");
         boolean disponible = Boolean.parseBoolean(scanner.nextLine());
 
-        Producto producto = new Producto(id, nombre, precio, disponible);
+        Producto producto = new Producto(nombre, precio, disponible);
         servicioProductos.registrarProducto(producto);
 
         System.out.println("Producto registrado correctamente.");
+        System.out.println("ID generado: " + producto.getId());
     }
 
     private void crearPedido() {
-        int idPedido = leerEntero("ID del pedido: ");
-        int idCliente = leerEntero("ID del cliente: ");
+        if (servicioClientes.listarClientes().isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+            return;
+        }
 
+        if (servicioProductos.listarProductos().isEmpty()) {
+            System.out.println("No hay productos registrados.");
+            return;
+        }
+
+        System.out.println("Seleccione el cliente:");
+        verClientes();
+
+        String idCliente = leerTexto("ID del cliente: ");
         Cliente cliente = servicioClientes.buscarCliente(idCliente);
+
         if (cliente == null) {
             System.out.println("Cliente no encontrado.");
             return;
         }
 
-        Pedido pedido = new Pedido(idPedido, cliente, false);
+        Pedido pedido = new Pedido(cliente, false);
 
         String continuar;
         do {
-            int idProducto = leerEntero("ID del producto: ");
+            System.out.println("\nSeleccione producto:");
+            verProductos();
+
+            String idProducto = leerTexto("ID del producto: ");
             Producto producto = servicioProductos.buscarProducto(idProducto);
 
             if (producto == null) {
@@ -110,43 +133,54 @@ public class MenuConsola {
             } else {
                 int cantidad = leerEntero("Cantidad: ");
                 servicioPedidos.agregarProductoAPedido(pedido, producto, cantidad);
-                System.out.println("Producto agregado al pedido.");
+                System.out.println("Producto agregado.");
             }
 
-            System.out.print("¿Desea agregar otro producto? (s/n): ");
+            System.out.print("¿Agregar otro producto? (s/n): ");
             continuar = scanner.nextLine();
+
         } while (continuar.equalsIgnoreCase("s"));
 
-        System.out.println("Método de pago:");
+        if (pedido.getItems().isEmpty()) {
+            System.out.println("Pedido vacío. Cancelado.");
+            return;
+        }
+
+        System.out.println("\nMétodo de pago:");
         System.out.println("1. Efectivo");
         System.out.println("2. Tarjeta");
-        int opcionPago = leerEntero("Seleccione una opción: ");
+
+        int opcionPago = leerEntero("Seleccione: ");
 
         ResultadoPago resultado;
+
         if (opcionPago == 1) {
             resultado = servicioPedidos.procesarPago(pedido, new PagoEfectivo());
         } else if (opcionPago == 2) {
             resultado = servicioPedidos.procesarPago(pedido, new PagoTarjeta());
         } else {
-            System.out.println("Método de pago inválido.");
+            System.out.println("Método inválido.");
             return;
         }
 
         System.out.println(resultado.getMensaje());
         System.out.println("Total del pedido: C$" + pedido.getTotal());
+        System.out.println("ID del pedido: " + pedido.getId());
     }
 
     private void verClientes() {
         System.out.println("=== CLIENTES ===");
         for (Cliente cliente : servicioClientes.listarClientes()) {
-            System.out.println(cliente);
+            System.out.println("ID: " + cliente.getId() + " | " + cliente.getNombre());
         }
     }
 
     private void verProductos() {
         System.out.println("=== PRODUCTOS ===");
         for (Producto producto : servicioProductos.listarProductos()) {
-            System.out.println(producto);
+            System.out.println("ID: " + producto.getId() +
+                    " | " + producto.getNombre() +
+                    " | C$" + producto.getPrecio());
         }
     }
 
@@ -159,8 +193,8 @@ public class MenuConsola {
 
     private void verReportes() {
         System.out.println("=== REPORTES ===");
-        System.out.println("Cantidad de pedidos realizados: " + servicioPedidos.cantidadPedidosRealizados());
-        System.out.println("Total de ventas: C$" + servicioPedidos.calcularTotalVentas());
+        System.out.println("Cantidad de pedidos: " + servicioPedidos.cantidadPedidosRealizados());
+        System.out.println("Total ventas: C$" + servicioPedidos.calcularTotalVentas());
     }
 
     private int leerEntero(String mensaje) {
@@ -168,8 +202,8 @@ public class MenuConsola {
             try {
                 System.out.print(mensaje);
                 return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Ingrese un número entero válido.");
+            } catch (Exception e) {
+                System.out.println("Ingrese un número válido.");
             }
         }
     }
@@ -179,9 +213,14 @@ public class MenuConsola {
             try {
                 System.out.print(mensaje);
                 return Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 System.out.println("Ingrese un número válido.");
             }
         }
+    }
+
+    private String leerTexto(String mensaje) {
+        System.out.print(mensaje);
+        return scanner.nextLine();
     }
 }

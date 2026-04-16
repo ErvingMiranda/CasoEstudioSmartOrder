@@ -20,7 +20,7 @@ public class ServicioProductos {
         return repositorioProductos.obtenerTodos();
     }
 
-    public Producto buscarProducto(int id) {
+    public Producto buscarProducto(String id) {
         return repositorioProductos.buscarPorId(id);
     }
 }

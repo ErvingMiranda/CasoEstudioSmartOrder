@@ -1,19 +1,21 @@
 package org.teamsolid.models;
 
+import org.teamsolid.utils.GeneradorId;
+
 public class Cliente {
-    private int id;
+    private String id;
     private String nombre;
     private String telefono;
     private String direccion;
 
-    public Cliente(int id, String nombre, String telefono, String direccion) {
-        this.id = id;
+    public Cliente(String nombre, String telefono, String direccion) {
+        this.id = GeneradorId.generar();
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,7 +46,7 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +

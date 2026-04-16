@@ -1,22 +1,24 @@
 package org.teamsolid.models;
 
+import org.teamsolid.utils.GeneradorId;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
-    private int id;
+    private String id;
     private Cliente cliente;
     private boolean pagado;
     private List<ItemPedido> items;
 
-    public Pedido(int id, Cliente cliente, boolean pagado) {
-        this.id = id;
+    public Pedido(Cliente cliente, boolean pagado) {
+        this.id = GeneradorId.generar();
         this.cliente = cliente;
         this.pagado = pagado;
         this.items = new ArrayList<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -36,8 +38,8 @@ public class Pedido {
         items.add(item);
     }
 
-    public void eliminarItem(int idProducto) {
-        items.removeIf(item -> item.getProducto().getId() == idProducto);
+    public void eliminarItem(String idProducto) {
+        items.removeIf(item -> item.getProducto().getId().equals(idProducto));
     }
 
     public double getTotal() {
@@ -55,7 +57,7 @@ public class Pedido {
     @Override
     public String toString() {
         return "Pedido{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", cliente=" + cliente.getNombre() +
                 ", pagado=" + pagado +
                 ", items=" + items +

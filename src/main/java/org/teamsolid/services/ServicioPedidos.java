@@ -51,6 +51,10 @@ public class ServicioPedidos {
         return repositorioPedidos.obtenerTodos();
     }
 
+    public Pedido buscarPedido(String id) {
+        return repositorioPedidos.buscarPorId(id);
+    }
+
     public double calcularTotalVentas() {
         double total = 0;
         for (Pedido pedido : repositorioPedidos.obtenerTodos()) {
