@@ -28,4 +28,9 @@ public class RepositorioPedidosMemoria implements RepositorioPedidos {
         }
         return null;
     }
+
+    @Override
+    public void eliminar(String id) {
+        pedidos.removeIf(pedido -> pedido.getId().equals(id));
+    }
 }

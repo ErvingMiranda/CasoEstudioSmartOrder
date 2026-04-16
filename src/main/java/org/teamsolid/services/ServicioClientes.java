@@ -23,4 +23,17 @@ public class ServicioClientes {
     public Cliente buscarCliente(String id) {
         return repositorioClientes.buscarPorId(id);
     }
+
+    public void editarCliente(String id, String nombre, String telefono, String direccion) {
+        Cliente cliente = repositorioClientes.buscarPorId(id);
+        if (cliente != null) {
+            cliente.setNombre(nombre);
+            cliente.setTelefono(telefono);
+            cliente.setDireccion(direccion);
+        }
+    }
+
+    public void eliminarCliente(String id) {
+        repositorioClientes.eliminar(id);
+    }
 }

@@ -28,4 +28,9 @@ public class RepositorioProductosMemoria implements RepositorioProductos {
         }
         return null;
     }
+
+    @Override
+    public void eliminar(String id) {
+        productos.removeIf(producto -> producto.getId().equals(id));
+    }
 }

@@ -7,4 +7,5 @@ public interface RepositorioPedidos {
     void guardar(Pedido pedido);
     List<Pedido> obtenerTodos();
     Pedido buscarPorId(String id);
+    void eliminar(String id);
 }

@@ -28,6 +28,10 @@ public class ServicioPedidos {
         pedido.agregarItem(new ItemPedido(producto, cantidad));
     }
 
+    public void eliminarProductoDePedido(Pedido pedido, String idProducto) {
+        pedido.eliminarItem(idProducto);
+    }
+
     public ResultadoPago procesarPago(Pedido pedido, MetodoPago metodoPago) {
         if (pedido.getItems().isEmpty()) {
             return new ResultadoPago(false, "No se puede pagar un pedido vacío.");
@@ -53,6 +57,10 @@ public class ServicioPedidos {
 
     public Pedido buscarPedido(String id) {
         return repositorioPedidos.buscarPorId(id);
+    }
+
+    public void eliminarPedido(String id) {
+        repositorioPedidos.eliminar(id);
     }
 
     public double calcularTotalVentas() {

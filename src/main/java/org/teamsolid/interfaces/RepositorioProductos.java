@@ -7,4 +7,5 @@ public interface RepositorioProductos {
     void guardar(Producto producto);
     List<Producto> obtenerTodos();
     Producto buscarPorId(String id);
+    void eliminar(String id);
 }

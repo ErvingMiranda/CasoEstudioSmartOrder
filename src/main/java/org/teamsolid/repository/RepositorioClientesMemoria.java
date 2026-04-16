@@ -28,4 +28,9 @@ public class RepositorioClientesMemoria implements RepositorioClientes {
         }
         return null;
     }
+
+    @Override
+    public void eliminar(String id) {
+        clientes.removeIf(cliente -> cliente.getId().equals(id));
+    }
 }
